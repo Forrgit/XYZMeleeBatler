@@ -11,5 +11,6 @@ class AMBPlayerCharacter : public AMBBaseCharacter
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void InputAttack();
+	void InputStartAttack();
+	void InputStopAttack();
 };

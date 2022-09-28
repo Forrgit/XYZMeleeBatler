@@ -13,6 +13,8 @@ class AMBMeleeItem : public AMBItem
 	GENERATED_BODY()
 public:
 	AMBMeleeItem();
+
+	virtual void GrantAbilitiesToActor(AActor* Actor) override;
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combo Attack")

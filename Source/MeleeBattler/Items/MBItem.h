@@ -8,4 +8,8 @@ UCLASS(Abstract)
 class AMBItem : public AActor
 {
 	GENERATED_BODY()
+public:
+	virtual void GrantAbilitiesToActor(AActor* Actor);
+	
 };
+

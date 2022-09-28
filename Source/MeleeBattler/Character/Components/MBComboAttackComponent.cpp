@@ -16,18 +16,45 @@ void UMBComboAttackComponent::BeginPlay()
 	}
 }
 
-void UMBComboAttackComponent::Attack()
+void UMBComboAttackComponent::NextAttackAbility()
 {
 	const auto activeItem = GetActiveItem();
-	
-	if(!OwningCharacter.IsValid() || activeItem == nullptr
-		|| activeItem->ComboAttackData == nullptr || activeItem->ComboAttackData->ComboAbilities.Num() == 0)
+	if(LastAbilityItem == activeItem)
 	{
-		return;
-	}
+		const auto comboAttackData = activeItem->ComboAttackData;
 
-	const auto comboAttackData = activeItem->ComboAttackData;
-	OwningCharacter->UseAbility(comboAttackData->ComboAbilities[0]);
+		LastComboAttackAbilityIndex++;
+		if(!comboAttackData->ComboAbilities.IsValidIndex(LastComboAttackAbilityIndex))
+		{
+			LastComboAttackAbilityIndex = 0;
+		}
+	}
+	else
+	{
+		ResetCombo();
+	}
+}
+
+void UMBComboAttackComponent::ResetCombo()
+{
+	LastAbilityItem = GetActiveItem();
+	LastComboAttackAbilityIndex = 0;
+}
+
+TSubclassOf<UGameplayAbility> UMBComboAttackComponent::GetNextComboAbility() const
+{
+	if(const auto activeItem = GetActiveItem())
+	{
+		if(const auto comboAttackData = activeItem->ComboAttackData)
+		{
+			if(comboAttackData->ComboAbilities.IsValidIndex(LastComboAttackAbilityIndex))
+			{
+				return comboAttackData->ComboAbilities[LastComboAttackAbilityIndex];
+			}
+		}
+	}
+	
+	return nullptr; 
 }
 
 AMBMeleeItem* UMBComboAttackComponent::GetActiveItem() const

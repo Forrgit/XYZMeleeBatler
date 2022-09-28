@@ -4,10 +4,17 @@ void AMBPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("Attack", EInputEvent::IE_Pressed, this, &AMBPlayerCharacter::InputAttack);
+	PlayerInputComponent->BindAction("Attack", EInputEvent::IE_Pressed, this, &AMBPlayerCharacter::InputStartAttack);
+	PlayerInputComponent->BindAction("Attack", EInputEvent::IE_Released, this, &AMBPlayerCharacter::InputStopAttack);
+
 }
 
-void AMBPlayerCharacter::InputAttack()
+void AMBPlayerCharacter::InputStartAttack()
 {
-	Attack();
+	StartAttack();
+}
+
+void AMBPlayerCharacter::InputStopAttack()
+{
+	StopAttack();
 }

@@ -3,9 +3,14 @@
 #include "AbilitySystemComponent.h"
 #include "Components/MBComboAttackComponent.h"
 #include "Components/MBEquipComponent.h"
+#include "MeleeBattler/Abilities/MBAttackAbility.h"
+#include "MeleeBattler/Abilities/MBCharacterAttributeSet.h"
+
 
 AMBBaseCharacter::AMBBaseCharacter()
 {
+	CharacterAttributeSet = CreateDefaultSubobject<UMBCharacterAttributeSet>("CharacterAttributeSet");
+	
 	EquipComponent = CreateDefaultSubobject<UMBEquipComponent>("EquipComponent");
 
 	ComboAttackComponent = CreateDefaultSubobject<UMBComboAttackComponent>("ComboAttackComponent");
@@ -21,11 +26,16 @@ void AMBBaseCharacter::UseAbility(TSubclassOf<UGameplayAbility> Ability)
 	}
 }
 
-void AMBBaseCharacter::Attack()
+void AMBBaseCharacter::StartAttack()
+{	
+	UseAbility(AttackAbility);
+}
+
+void AMBBaseCharacter::StopAttack()
 {
-	if(CanAttack())
+	if(const auto abilitySpec = AbilitySystemComponent->FindAbilitySpecFromClass(AttackAbility))
 	{
-		ComboAttackComponent->Attack();
+		AbilitySystemComponent->CancelAbility(abilitySpec->Ability);
 	}
 }
 

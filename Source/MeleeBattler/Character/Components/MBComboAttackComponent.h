@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Abilities/GameplayAbility.h"
 #include "Components/ActorComponent.h"
 
 #include "MBComboAttackComponent.generated.h"
@@ -15,7 +16,10 @@ class UMBComboAttackComponent : public UActorComponent
 public:
 	virtual void BeginPlay() override;
 
-	void Attack();
+	void NextAttackAbility();
+	void ResetCombo();
+	
+	TSubclassOf<UGameplayAbility> GetNextComboAbility() const;
 
 private:
 	AMBMeleeItem* GetActiveItem() const;
@@ -23,6 +27,9 @@ private:
 private:
 	TWeakObjectPtr<AMBBaseCharacter> OwningCharacter;
 	TWeakObjectPtr<UMBEquipComponent> EquipComponent;
+
+	TWeakObjectPtr<AMBMeleeItem> LastAbilityItem;
+	int32 LastComboAttackAbilityIndex;
 };
 
 
