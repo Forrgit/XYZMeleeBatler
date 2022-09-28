@@ -6,6 +6,7 @@
 
 #include "MBBaseCharacter.generated.h"
 
+class UMBCharacterTargetingComponent;
 class UMBCharacterAttributeSet;
 class UMBComboAttackComponent;
 class UMBEquipComponent;
@@ -46,6 +47,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UMBComboAttackComponent* ComboAttackComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UMBCharacterTargetingComponent* TargetingComponent;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UAbilitySystemComponent* AbilitySystemComponent;
 };

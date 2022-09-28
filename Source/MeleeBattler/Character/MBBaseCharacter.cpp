@@ -1,11 +1,11 @@
 #include "MBBaseCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "Components/MBCharacterTargetingComponent.h"
 #include "Components/MBComboAttackComponent.h"
 #include "Components/MBEquipComponent.h"
 #include "MeleeBattler/Abilities/MBAttackAbility.h"
 #include "MeleeBattler/Abilities/MBCharacterAttributeSet.h"
-
 
 AMBBaseCharacter::AMBBaseCharacter()
 {
@@ -14,6 +14,8 @@ AMBBaseCharacter::AMBBaseCharacter()
 	EquipComponent = CreateDefaultSubobject<UMBEquipComponent>("EquipComponent");
 
 	ComboAttackComponent = CreateDefaultSubobject<UMBComboAttackComponent>("ComboAttackComponent");
+
+	TargetingComponent = CreateDefaultSubobject<UMBCharacterTargetingComponent>("TargetingComponent");
 
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
 }
